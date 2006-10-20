@@ -1,0 +1,42 @@
+AkkTeX - LaTeX utilities by Igor Akkerman
+
+Main Features:
+  - document class 'akktecdoc' for technical documents
+  - package 'akkcounterlabelpattern' providing easy label creation for counters
+  - package 'akkparskip' providing a non-empty parskip with extended length corrections
+
+
+AkkTeX summary
+
+AkkTeX consists of a collection of new LaTeX document classes and a very large
+set of LaTeX packages with hundreds of new macros simplifying the creation of
+scientific papers. The packages have all been created within years of practical
+work with LaTeX.
+
+AkkTeX provides document classes for mathematical lecture notes, elegant
+working sheets, thesis works and many more. They are designed for easy-to-use
+generation of the specified kinds of documents.
+
+Additionally, the AkkTeX packages provide a tremendous number of macros,
+especially for mathematic texts. Their goal is to reduce the creation time of
+documents to a minimum, such that, for example, to type a mathematic paper does
+not take longer than to write it by hand. Another advantage over usual LaTeX
+typing is that the macro names are subject-specific, not symbol-oriented.
+That is, the author can think less about the LaTeX symbol names, but instead,
+can call them by their meaning. The \set macro is just the simplest example.
+Not only typing becomes more intuitive, but also, reading the LaTeX source code,
+changing and refactoring it is made easier.
+
+
+=========================================================================
+This work may be distributed and/or modified under the
+conditions of the LaTeX Project Public License (latest version).
+
+The latest version of this license can be found at
+    http://www.latex-project.org/lppl.txt
+
+This file may only be distributed together with a copy of the
+'AkkTeX' bundle.
+
+The files belonging to the 'AkkTeX' bundle are listed above in this file.
+=========================================================================

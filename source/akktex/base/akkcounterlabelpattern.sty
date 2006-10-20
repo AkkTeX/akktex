@@ -1,0 +1,128 @@
+%=====================================================================================================================================
+% Package akkcounterlabelpattern by Igor Akkerman (c) 2004
+% Package providing easy counter label creation using a specified pattern.
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License (latest version).
+%
+% The latest version of this license can be found at
+%     http://www.latex-project.org/lppl.txt
+%
+% This file may only be distributed together with a copy of the
+% 'AkkTeX' bundle.
+% 
+% The list of all files belonging to the 'AkkTeX' bundle is
+% given in the file 'AkkTeX.txt' in the bundle.
+%=====================================================================================================================================
+\NeedsTeXFormat{LaTeX2e}[1995/12/01]
+\ProvidesPackage{akkcounterlabelpattern}[2004/06/06 1.0.1 by Igor Akkerman (c)2004 Package providing easy counter label creation using a specified pattern.]
+%=====================================================================================================================================
+
+%=====================================================================================================================================
+% This package is providing simple means for creating counter labels with a
+% user-defined pattern.
+%
+% Usually, for displaying counters in a LaTeX document,
+% you would need to use the commands 
+% "\arabic{mycounter}", "\roman{mycounter}" etc.
+%
+% This package provides an easier way to define how a counter should be displayed. 
+% A pattern like "{Element }1" or "{Part }A" can be specified to define the label's format,
+% instead of "Element \arabic{mycounter}" or "Part \Alph{mycounter}".
+%=====================================================================================================================================
+
+\makeatletter
+
+\newtoks \akk@counterlabel%
+
+% -------------------------------------------------------------------
+% \createcounterlabel {<countername>} {<labelname>} {<labelpattern>}
+%
+% Creates a new command \<labelname> expanding to the label specified
+% by <labelpattern> using the counter specified by <countername>.
+% -------------------------------------------------------------------
+\newcommand \createcounterlabel[3] {%
+    \def\akk@countername{#1}%
+    \akk@counterlabel{}%
+    \let \akk@counterpatternNumber ?%
+    \akk@parsePatternToken@ #3\relax%
+    \ifx\akk@counterpatternNumber?%
+        \@warning{%
+            [counterlabelpattern] The counter will not be printed.^^J%
+            [counterlabelpattern] The label is: '\the\akk@counterlabel'%
+        }%
+    \fi%
+    \expandafter%
+        \def \csname #2\endcsname {\the\akk@counterlabel}%
+    \expandafter%
+        \let \csname the\akk@countername\endcsname \akk@counterpatternNumber%
+}
+
+\def \akk@parsePatternToken@ {%
+    % set \akk@patterntoken to <next token in <labelpattern> >,
+    % expand \akk@processPatternToken@ \akk@patterntoken
+    \futurelet\akk@patterntoken\akk@processPatternToken@%
+}
+
+\def \akk@processPatternToken@ {%
+    \ifx \akk@patterntoken A%
+        \def\akk@processcommand{\akk@processLabel\Alph}%
+    \else \ifx \akk@patterntoken a%
+        \def\akk@processcommand{\akk@processLabel\alph}%
+    \else \ifx \akk@patterntoken i%
+        \def\akk@processcommand{\akk@processLabel\roman}%
+    \else \ifx \akk@patterntoken I%
+        \def\akk@processcommand{\akk@processLabel\Roman}%
+    \else \ifx \akk@patterntoken 1%
+        \def\akk@processcommand{\akk@processLabel\arabic}%
+    \else \ifx \akk@patterntoken \@sptoken% (= ' ')
+        \let\akk@processcommand\akk@processSpace%
+    \else \ifx \akk@patterntoken \bgroup% (= '{')
+        \let\akk@processcommand\akk@processGroup%
+    \else \ifx \akk@patterntoken\relax%
+        \let\akk@processcommand\@gobble%
+    \else%
+        \let\akk@processcommand\akk@processOther%
+        \counterlabelpatternTokenHook
+    \fi\fi\fi\fi\fi\fi\fi\fi%
+    \akk@processcommand%
+}
+
+% \akk@processLabel<\Alph|\alph|\Roman|\roman|\arabic><A|a|I|i|1>
+% Actually, the second parameter is ignored.
+\def \akk@processLabel#1#2{%
+    \ifx\akk@counterpatternNumber?%
+    \else%
+        \errmessage{%
+            [counterlabelpattern] The counter must be unique in the label.%
+        }%
+    \fi%
+    \edef \akk@counterpatternNumber {\noexpand#1{\akk@countername}}%
+    \akk@counterlabel \expandafter{\the\akk@counterlabel\csname the\akk@countername\endcsname}%
+    \akk@parsePatternToken@%
+}
+
+\def \akk@processSpace {%
+    \afterassignment\akk@processSp@ce%
+    \let\misi@= % (don't remove the blank before %)
+}
+
+\def \akk@processSp@ce {%
+    \akk@counterlabel \expandafter{\the\akk@counterlabel\space}%
+    \akk@parsePatternToken@%
+}
+
+\def \akk@processGroup#1{%
+    \akk@counterlabel \expandafter{\the\akk@counterlabel{#1}}%
+    \akk@parsePatternToken@%
+}
+
+\def \akk@processOther#1{%
+    \akk@counterlabel%
+    \expandafter{\the\akk@counterlabel#1}%
+    \akk@parsePatternToken@%
+}
+
+\providecommand\counterlabelpatternTokenHook{}
+
+\makeatother
