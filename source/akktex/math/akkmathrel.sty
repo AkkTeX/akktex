@@ -1,5 +1,5 @@
 %=====================================================================================================================================
-% Package akkmathrel by Igor Akkerman (c) 2000, 2001, 2002, 2003, 2004, 2005
+% Package akkmathrel by Igor Akkerman (c) 2000, 2001, 2002, 2003, 2004, 2005, 2006
 % Package providing utilities for typesetting mathematical relations.
 %
 % This work may be distributed and/or modified under the
@@ -15,7 +15,7 @@
 % given in the file 'AkkTeX.txt' in the bundle.
 %=====================================================================================================================================
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesPackage{akkmathrel}[2005/04/30 2.0 by Igor Akkerman (c) 2000, 2001, 2002, 2003, 2004, 2005 Package providing utilities for typesetting mathematical relations]
+\ProvidesPackage{akkmathrel}[2006/10/22 2.0.1 by Igor Akkerman (c) 2000, 2001, 2002, 2003, 2004, 2005, 2006 Package providing utilities for typesetting mathematical relations]
 %=====================================================================================================================================
 
 \RequirePackage{amsmath}
@@ -29,34 +29,39 @@
 %------------------------------------------------------------------------------
 % Definition relations
 %------------------------------------------------------------------------------
-\DeclareMathOperator \defas {:=}
-\DeclareMathOperator \asdef {=:}
+\newcommand \defas {:=}
+\newcommand \asdef {=:}
 \newcommand \defequiv {:\iff}
-\DeclareMathOperator \equivdef {\iff:}
+\newcommand \equivdef {\iff:}
 
 %------------------------------------------------------------------------------
 % Aligned annotated relations
 %------------------------------------------------------------------------------
+% \ann{annotation}                typesets an annotation in the annotation font
 % \annrel{relation}{annotation}   typesets an annotated relation
 % \alannrel{relation}{annotation} typesets an aligned annotated relation
 % \setlength \relwidth {relwidth} defines the maximum required relation width
-% \annwidth{annotation}           defines the maximum required annotation width
-% \annw{annotation}               by the width of the specified annotation
+% \annwidth{annotation}        \/ defines the maximum required annotation width
+% \annw{annotation}            /\ by the width of the specified annotation
 % \alrel{relation}                align a relation within a box of the width 
 %                                 of the maximum required annotation width
-% \annfontsize{fontsize}          defines the font size to use for annotations
+% \annfont{fontcommand}           defines the font to use for annotations
 %                                 default: \scriptsize
 %------------------------------------------------------------------------------
+\newcommand \ann[1] {%
+	{\akk@annfontsize #1}%
+}
+
 \newcommand \annrel[2] {%
-    \stackrel{\mbox{\akk@annfontsize #2}}{#1}%
+    \stackrel{\mbox{\ann{#2}}}{#1}%
 }
 
 \newcommand \alannrel[2] {%
-    \stackrel{\makebox[\relwidth]{\akk@annfontsize #2}}{#1}%
+    \stackrel{\makebox[\akk@annwidth]{\ann{#2}}}{#1}%
 }
 
 \newcommand \annwidth[1] {%
-    \settowidth \relwidth {\mbox{\akk@annfontsize #1}}%
+    \settowidth \akk@annwidth {\mbox{\ann{#1}}}%
 }
 
 \newcommand \annw[1] {%
@@ -67,13 +72,12 @@
     \alannrel{#1}{}%
 }
 
-\newcommand \annfontsize[1] {%
-    \renewcommand \akk@annfontsize {#1}%
+\newcommand \annfont[1] {%
+    \renewcommand \akk@annfont {#1}%
 }
 
-\newlength \relwidth
-%------------------------------------------------------------------------------
 \newcommand \akk@annfontsize \scriptsize
+\newlength  \akk@annwidth
 %------------------------------------------------------------------------------
 
 %------------------------------------------------------------------------------
@@ -154,8 +158,8 @@
 \newcommand \qimplq[1][]   {{\quad \impl[#1] \quad}}
 \newcommand \qqimplqq[1][] {{\qquad \impl[#1] \qquad}}
 
-\providecommand \inv {^{-1}}              % inverse relation (do not wrap twice! {{}})
-\providecommand \inverse[1] {{#1}\rinv}   % inverse of argument
+\providecommand \inv {^{-1}}             % inverse relation (do not wrap twice! {{}})
+\providecommand \inverse[1] {{#1}\inv}   % inverse of argument
 %-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 \makeatother
