@@ -1,9 +1,14 @@
 AkkTeX - LaTeX utilities by Igor Akkerman
 
 Main Features:
-  - document class 'akktecdoc' for technical documents
-  - package 'akkcounterlabelpattern' providing easy label creation for counters
-  - package 'akkparskip' providing a non-empty parskip with extended length corrections
+  - new document classes for technical documents, thesis works, mathematical
+    manuscripts and lecture notes
+  - many math packages providing a tremendous nuber of macros for mathematical
+    texts
+  - layout providing a non-empty parskip with extended length corrections and
+    new section definition commands
+  - easy label creation for counters
+  - german language tools and predefined abbreviations
 
 
 AkkTeX summary
