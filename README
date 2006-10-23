@@ -1,4 +1,4 @@
-AkkTeX - LaTeX utilities by Igor Akkerman
+AkkTeX - LaTeX utilities by Igor Akkerman  (http://www.akktex.org/)
 
 Main Features:
   - new document classes for technical documents, thesis works, mathematical
@@ -32,6 +32,14 @@ can call them by their meaning. The \set macro is just the simplest example.
 Not only typing becomes more intuitive, but also, reading the LaTeX source code,
 changing and refactoring it is made easier.
 
+The latest release can be found at:
+
+    http://www.akktex.org/ 
+     
+Browse our CVS repository for the latest versions of the packages and document
+classes at:
+
+    http://sourceforge.net/cvs/?group_id=160672
 
 =========================================================================
 This work may be distributed and/or modified under the
