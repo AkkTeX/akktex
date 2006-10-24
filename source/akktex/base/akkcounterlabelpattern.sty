@@ -23,8 +23,7 @@
 % user-defined pattern.
 %
 % Usually, for displaying counters in a LaTeX document,
-% you would need to use the commands 
-% "\arabic{mycounter}", "\roman{mycounter}" etc.
+% you would need to use the commands "\arabic{mycounter}", "\Alph{mycounter}" etc.
 %
 % This package provides an easier way to define how a counter should be displayed. 
 % A pattern like "{Element }1" or "{Part }A" can be specified to define the label's format,
@@ -40,6 +39,25 @@
 %
 % Creates a new command \<labelname> expanding to the label specified
 % by <labelpattern> using the counter specified by <countername>.
+%
+% Examples:
+% \createcounterlabel {chapter}{chapternumber}{{Chapter }1}
+% creates the new command \chapternumber that will expand to
+%     "Chapter 1", "Chapter 2", "Chapter 3", ...
+% where "1", "2", "3", ... are the current values of the counter
+% "chapter".
+% It is a shorter version of
+% \renewcommand {\thechapter} {\arabic{chapter}}
+% \newcommand {\chapternumber} {Chapter \thechapter}
+% 
+% \createcounterlabel {part}{partnumber}{{Part }A}
+% creates the new command \partnumber that will expand to
+%     "Part A", "Part B", "Part C", ...
+% where A, B, C, ... are the uppercase letter representants of the
+% current values of the counter "part".
+% It is a shorter version of
+% \renewcommand {\thepart} {\alph{part}}
+% \newcommand {\partnumber} {Part \thepart}
 % -------------------------------------------------------------------
 \newcommand \createcounterlabel[3] {%
     \def\akk@countername{#1}%
@@ -104,7 +122,7 @@
 
 \def \akk@processSpace {%
     \afterassignment\akk@processSp@ce%
-    \let\misi@= % (don't remove the blank before %)
+    \let\akk@dummy= % (don't remove the blank before %)
 }
 
 \def \akk@processSp@ce {%
