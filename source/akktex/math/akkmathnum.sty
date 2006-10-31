@@ -186,8 +186,12 @@
 %------------------------------------------------------------------------------
 % complex numbers
 %------------------------------------------------------------------------------
-\newcommand     \real       {{\mathrm{Re}}}
-\newcommand     \imag       {{\mathrm{Im}}}
+\let \Resymb \Re
+\let \Imsymb \Im
+\newcommand     \real       {\operatorname{Re}}
+\newcommand     \imag       {\operatorname{Im}}
+\renewcommand   \Re         \real
+\renewcommand   \Im         \imag
 \newcommand     \coco[1]    {\overline{#1}}
 
 \newcommand     \cocofun    {\coco{\phantom{o}}}

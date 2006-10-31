@@ -19,24 +19,26 @@
 \RequirePackage{amstext}
 \RequirePackage{latexsym}
 %-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-\newcommand   \NN                 {{\mathbb N}}
-\newcommand   \NNN                {{\NN\minuszero}}
-\newcommand   \RR                 {{\mathbb R}}
-\newcommand   \RRm                {\RR^m}
-\newcommand   \RRn                {\RR^n}
-\newcommand   \QQ                 {{\mathbb Q}}
-\newcommand   \ZZ                 {{\mathbb Z}}
-\newcommand   \CC                 {{\mathbb C}}
-\newcommand   \CCm                {\CC^m}
-\newcommand   \CCn                {\CC^n}
-\newcommand   \KK                 {{\mathbb K}}
-\newcommand   \KKm                {\KK^m}
-\newcommand   \KKn                {\KK^n}
-\newcommand   \LL                 {{\mathbb L}}
-\newcommand   \BB                 {{\mathcal B}}
-\newcommand   \PP                 {{\mathcal P}}
-\newcommand   \VV                 {{\mathcal V}}
+\newcommand   \akk@mathbb[1] {\mbox{$\mathbb{#1}$}}
 
+\newcommand   \NN                 {\akk@mathbb N}
+\newcommand   \NNN                {\NN\minuszero}
+\newcommand   \RR                 {\akk@mathbb R}
+\newcommand   \RRm                {{\RR^m}}
+\newcommand   \RRn                {{\RR^n}}
+\newcommand   \QQ                 {\akk@mathbb Q}
+\newcommand   \ZZ                 {\akk@mathbb Z}
+\newcommand   \CC                 {\akk@mathbb C}
+\newcommand   \CCm                {{\CC^m}}
+\newcommand   \CCn                {{\CC^n}}
+\newcommand   \KK                 {\akk@mathbb K}
+\newcommand   \KKm                {{\KK^m}}
+\newcommand   \KKn                {{\KK^n}}
+\newcommand   \LL                 {\akk@mathbb L}
+
+\newcommand   \BBB                {{\mathcal B}}
+\newcommand   \PPP                {{\mathcal P}}
+\newcommand   \VVV                {{\mathcal V}}
 \newcommand   \CCC                {{\mathcal C}}
 
 \newcommand   \set[1]             {\{#1\}}
@@ -47,8 +49,9 @@
 \newcommand   \setcard[1]         {{\left| #1 \right|}}
 
 % `such that' bar
-\newcommand   \sth                {\,|\,}
-\newcommand   \Sth                {\right| \left.}
+\newcommand   \sth                {\,|\,}            % Abstand so korrekt
+\newcommand   \Sth                {\,\right| \left.} % Abstand so korrekt
+\newcommand   \stH                {\right. \left|\,} % Abstand so korrekt
 
 \newcommand   \sm                 \setminus
 \newcommand   \setcomp[1]         {{\overline{{#1}}}}

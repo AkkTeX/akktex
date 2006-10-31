@@ -38,6 +38,12 @@
     \global\proofendedtrue%
 }
 
+\newcommand \optproofend {%
+    \ifboolfalse{proofended}{%
+        \proofend%
+    }%
+}
+
 \newenvironment{proof}{%
     \unskip\par%
     \textit{\textbf{\akk@prooflabel:}}\\%
@@ -59,9 +65,7 @@
 \newenvironment{proof*}{%
     \setboolean{proofended}{false}%
 }{
-    \ifboolfalse{proofended}{%
-        \proofend%
-    }%
+	\optproofend
 }
 
 \prooflabel{Beweis}
@@ -81,26 +85,39 @@
 %------------------------------------------------------------------------------
 % Induction environments
 %------------------------------------------------------------------------------
-\newcommand \vind[2]{\textit{Beweis mittels vollständiger Induktion über $#1$:}\\}
-\newcommand \vindende {\indende{vollständige}}
+\newenvironment{vind}[2] {%
+	\begin{vind*}{#1}{#2}%
+	\vindtitel{\indvar}%
+}{%
+	\vindende%
+	\end{vind*}%
+}
 
-\newcommand \sind {\textit{Beweis durch strukturelle Induktion:\\}}
-\newcommand \sindende {\indende{strukturelle}}
+\newenvironment{vind*}[2] {%
+	\begin{proof*}%
+		\newcommand \akk@indvar {#1}%
+		\newcommand \akk@indstart {#2}%
+}{%
+	\end{proof*}%
+}
 
-\newcommand{\indanf}[2]
-{Induktionsanfang ($#1=#2$):}
+\newcommand \vindtitel[1] {\textit{Beweis mittels vollständiger Induktion über $\akk@indvar$:}\\*[.5\baselineskip]}%
+\newcommand \vindanfm     {\indanfm}
+\newcommand \vindanf      {\indanf}
+\newcommand \vindschritt  {\vindschrittm\\}
+\newcommand \vindschrittm {\indschrittm[ $(\akk@indvar \to \akk@indvar + 1)$]}
+\newcommand \vindvor      {\indvor}
+\newcommand \vindende     {\indende{vollständige}}
 
-\newcommand{\indanfs}
-{Induktionsanfang:}
+\newcommand \sindtitel    {\textit{Beweis durch strukturelle Induktion:\\}}
+\newcommand \sindende     {\indende{strukturelle}}
 
-\newcommand{\indvor}
-{Induktionsvoraussetzung:}
-
-\newcommand{\indschritt}
-{Induktionsschritt:}
-
-\newcommand{\indende}[1]
-{Nach dem Prinzip der #1n Induktion folgt die Behauptung.\proofend}
+\newcommand \indanfm         {Induktionsanfang ($\akk@indvar=\akk@indstart$):}
+\newcommand \indanf          {\indanfm\\}
+\newcommand \indanfs         {Induktionsanfang:\\}
+\newcommand \indvor          {Induktionsvoraussetzung:\\}
+\newcommand \indschrittm[1][]{Induktionsschritt#1:}
+\newcommand \indende[1]      {Nach dem Prinzip der #1n Induktion folgt die Behauptung.}
 
 %------------------------------------------------------------------------------
 % equivalence and set equality proofs
@@ -122,7 +139,7 @@
 	\begin{proof}%
 		\begin{equivproof**}%
 }{%
-		\proofend%
+		\optproofend%
 		\end{equivproof**}%
 	\end{proof}%
 }
@@ -131,7 +148,7 @@
 	\begin{proof*}%
 		\begin{equivproof**}%
 }{%
-		\proofend%
+		\optproofend%
 		\end{equivproof**}%
 	\end{proof*}%
 }
@@ -148,7 +165,7 @@
 	\begin{proof}%
 		\begin{setequalproof**}%
 }{%
-		\proofend%
+		\optproofend%
 		\end{setequalproof**}%
 	\end{proof}%
 }
@@ -157,7 +174,7 @@
 	\begin{proof*}%
 		\begin{setequalproof**}%
 }{%
-		\proofend%
+		\optproofend%
 		\end{setequalproof**}%
 	\end{proof*}%
 }
