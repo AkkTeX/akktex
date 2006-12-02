@@ -14,4 +14,18 @@
 \ProvidesPackage{akklist}[2006/10/26 1.0.0 by Igor Akkerman (c) 2000-2006 Package providing commands for lists.]
 %=====================================================================================================================================
 
-\newcommand \bfitem[1] {\unskip\item \textbf{#1}\\*}
+% titled list item
+%
+% Example:
+% \begin{itemize}
+%     \titem{Title 1}
+%         Text for this item
+%     \titem{Title 2}
+%         Text for this item
+% \end{itemize}
+%
+% Setting title format:
+% \renewcommand \titemformat[1] {\textbf{#1}} % default setting
+%
+\newcommand \titemformat[1] {\textbf{#1}}
+\newcommand \titem[1]       {\unskip\item \titemformat{#1}\\*}

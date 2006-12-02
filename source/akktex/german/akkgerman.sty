@@ -1,5 +1,5 @@
 %=====================================================================================================================================
-% Package akkgerman by Igor Akkerman (c) 2000, 2001, 2002, 2003, 2004, 2005
+% Package akkgerman by Igor Akkerman (c) 2000-2006
 % Package for typesetting German documents.
 %
 % This work may be distributed and/or modified under the
@@ -11,16 +11,32 @@
 % This file may only be distributed together with the full 'AkkTeX' bundle.
 %=====================================================================================================================================
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesPackage{akkgerman}[2005/04/27 1.0.0 by Igor Akkerman (c) 2000, 2001, 2002, 2003, 2004, 2005 Package for typesetting German documents.]
+\ProvidesPackage{akkgerman}[2005/11/22 1.1.0 by Igor Akkerman (c) 2000-2006 Package for typesetting German documents.]
 %=====================================================================================================================================
 
-% prepare for Latin-1 encoding and German dictionary
+% prepare for Latin-1 encoding, T1 font and German dictionary
 \RequirePackage[latin1]{inputenc}
 \RequirePackage[T1]{fontenc}
-\RequirePackage[ngerman]{babel}
+\RequirePackage[ngerman,KeepShorthandsActive]{babel}
 
 % German abbreviations
 \RequirePackage{akkgermanabbreviations}
 
 % German quotes
-\newcommand \qq[1] {\glqq #1\grqq\relax\@\xspace}
+\newcommand \qq[1] {\glqq #1\grqq}
+
+% non wrappable dash (-) allowing further hyphenation
+\defineshorthand{"_}{%
+    \textormath{%
+        \leavevmode%
+        \nobreak%
+        \hbox{-}%
+        \nobreak%
+        \hspace{0pt}%
+    }{%
+        -%
+    }%
+}
+
+% "/ shorthand for wrappable slash (/)
+\defineshorthand{"/}{/\hspace{0pt}}

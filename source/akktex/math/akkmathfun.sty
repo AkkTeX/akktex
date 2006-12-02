@@ -22,12 +22,21 @@
 
 % do not wrap the definitions twice {{}} because the line wrapping of the functions stops working correctly! 
 
-\newcommand \sfn[2]    {#1 \colon #2 \to}                     % function definition with short arrows
-\newcommand \sfnm[4]   {\fns{#1}{#2} #3, \quad #4 \mapsto}    % function definition with short arrows and mapsto
-\newcommand \sfnd[4]   {\fns{#1}{#2} #3, \quad #4 \defas}     % function definition with short arrows and defas
-\newcommand \fn[2]   {#1 \colon #2 \longto}                   % function definition with long arrows
-\newcommand \fnm[4]  {\fn{#1}{#2} #3, \quad #4 \longmapsto}   % function definition with long arrows and mapsto
-\newcommand \fnd[4]  {\fn{#1}{#2} #3, \quad #4 \defas}        % function definition with long arrows and defas
+\newcommand \sfn[2]  {#1 \colon #2 \to}                       % function definition with short arrows
+\newcommand \sfnm[4] {\sfn{#1}{#2} #3, \ #4 \mapsto}          % function definition with short arrows and mapsto
+\newcommand \sfnd[4] {\sfn{#1}{#2} #3, \ #4 \defas}           % function definition with short arrows and defas
+\newcommand \lfn[2]  {#1 \colon #2 \longto}                   % function definition with long arrows
+\newcommand \lfnm[4] {\lfn{#1}{#2} #3, \quad #4 \longmapsto}  % function definition with long arrows and mapsto
+\newcommand \lfnd[4] {\lfn{#1}{#2} #3, \quad #4 \defas}       % function definition with long arrows and defas
+\newcommand \dispfn[2]  {\lfn{#1}{#2}}                        % default behaviour in display mode
+\newcommand \dispfnm[4] {\lfnm{#1}{#2}{#3}{#4}}               % default behaviour in display mode
+\newcommand \dispfnd[4] {\lfnd{#1}{#2}{#3}{#4}}               % default behaviour in display mode
+\newcommand \textfn[2]  {\sfn{#1}{#2}}                        % default behaviour in text mode
+\newcommand \textfnm[4] {\sfnm{#1}{#2}{#3}{#4}}               % default behaviour in text mode
+\newcommand \textfnd[4] {\sfnd{#1}{#2}{#3}{#4}}               % default behaviour in text mode
+\newcommand \fn[2]   {\mathchoice{\dispfn{#1}{#2}}{\textfn{#1}{#2}}{\textfn{#1}{#2}}{\textfn{#1}{#2}}}
+\newcommand \fnm[4]  {\mathchoice{\dispfnm{#1}{#2}{#3}{#4}}{\textfnm{#1}{#2}{#3}{#4}}{\textfnm{#1}{#2}{#3}{#4}}{\textfnm{#1}{#2}{#3}{#4}}}
+\newcommand \fnd[4]  {\mathchoice{\dispfnd{#1}{#2}{#3}{#4}}{\textfnd{#1}{#2}{#3}{#4}}{\textfnd{#1}{#2}{#3}{#4}}{\textfnd{#1}{#2}{#3}{#4}}}
 
 \newcommand \longto \longrightarrow
 

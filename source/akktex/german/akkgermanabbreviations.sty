@@ -15,7 +15,12 @@
 %=====================================================================================================================================
 
 \RequirePackage{xspace}
+
+\makeatletter
 %------------------------------------------------------------------------------
+
+\let \akk@orig@S \S
+\let § \akk@orig@S
 
 \renewcommand \dh    {d.\,h.\@\xspace}
 \newcommand \Dh      {D.\,h.\@\xspace}
@@ -40,4 +45,6 @@
 \newcommand \so      {s.\,o.\@\xspace}
 \newcommand \su      {s.\,u.\@\xspace}
 \newcommand \oae     {o.\,ä.\@\xspace}
-\newcommand \ff      {ff.\@\xspace}
+\newcommand \ff      {\,ff.\@\xspace}
+
+\makeatother

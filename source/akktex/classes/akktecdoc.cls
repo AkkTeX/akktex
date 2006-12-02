@@ -87,4 +87,10 @@
 }
 % ---------------------------------------------------------
 
+% \akk@startsection{<name>}{<ebene>}{<einzug>}{<einziehen?>}{<vorabstand>}{<eingebettet?>}{<nachabstand>}{stil}
+\renewcommand \section       {\akk@startsection {section}       {1} {0pt} {false} {\akk@@beforesectionskip}       {false} {\akk@@aftersectionskip}       {\normalfont\Large\bfseries}}
+\renewcommand \subsection    {\akk@startsection {subsection}    {2} {0pt} {false} {\akk@@beforesubsectionskip}    {false} {\akk@@aftersubsectionskip}    {\normalfont\large\bfseries}}
+\renewcommand \subsubsection {\akk@startsection {subsubsection} {3} {0pt} {false} {\akk@@beforesubsubsectionskip} {false} {\akk@@aftersubsubsectionskip} {\normalfont\normalsize\bfseries}}
+\renewcommand \paragraph     {\akk@startsection {paragraph}     {4} {0pt} {false} {\akk@@beforeparagraphskip}     {false} {\akk@@afterparagraphskip}     {\normalfont\bfseries}}
+
 \makeatother
