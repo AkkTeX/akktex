@@ -11,7 +11,7 @@
 % This file may only be distributed together with the full 'AkkTeX' bundle.
 %=====================================================================================================================================
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesPackage{akkparskip}[2006/11/27 by Igor Akkerman (c) 2004-2006 v1.4.0 Package providing a non empty paragraph skip with list and section environment corrections.]
+\ProvidesPackage{akkparskip}[2006/12/06 by Igor Akkerman (c) 2004-2006 v1.4.1 Package providing a non empty paragraph skip with list and section environment corrections.]
 %=====================================================================================================================================
 
 \RequirePackage{akksection}
@@ -137,16 +137,6 @@
 \newlength \akk@default@parsep
 \newlength \akk@default@itemsep
 
-% skips before and after sections
-\newlength \akk@@beforesectionskip
-\newlength \akk@@beforesubsectionskip
-\newlength \akk@@beforesubsubsectionskip
-\newlength \akk@@beforeparagraphskip
-\newlength \akk@@aftersectionskip
-\newlength \akk@@aftersubsectionskip
-\newlength \akk@@aftersubsubsectionskip
-\newlength \akk@@afterparagraphskip
-
 % get the original values of the article class
 \setlength \akk@orig@parskip          \parskip
 \setlength \akk@orig@bigparskip       \bigparskip
@@ -163,7 +153,7 @@
 % set the actual default values of this style
 \setlength \akk@default@parindent     \z@
 \setlength \akk@default@parskip       {0.71125\baselineskip plus 2pt} % = 3mm bei 10pt
-\setlength \akk@default@bigparskip    {2\baselineskip plus 2pt} % \parskip + \baselineskip
+\setlength \akk@default@bigparskip    {2\baselineskip plus 2pt}
 \setlength \akk@default@labelsep      \akk@orig@labelsep
 \setlength \akk@default@rightmargin   \z@
 \setlength \akk@default@listparindent \z@
@@ -174,13 +164,13 @@
 \setlength \akk@default@itemsep       \akk@orig@itemsep
 
 \newcommand \akk@setoriginalvalues {%
-    \let \@listI   \akk@orig@listI%
-    \let \@listi   \akk@orig@listi%
-    \let \@listii  \akk@orig@listii%
-    \let \@listiii \akk@orig@listiii%
-    \let \@listiv  \akk@orig@listiv%
-    \let \@listv   \akk@orig@listv%
-    \let \@listvi  \akk@orig@listvi%
+    \let       \@listI        \akk@orig@listI%
+    \let       \@listi        \akk@orig@listi%
+    \let       \@listii       \akk@orig@listii%
+    \let       \@listiii      \akk@orig@listiii%
+    \let       \@listiv       \akk@orig@listiv%
+    \let       \@listv        \akk@orig@listv%
+    \let       \@listvi       \akk@orig@listvi%
     \setlength \parskip       \akk@orig@parskip%
     \setlength \bigparskip    \akk@orig@bigparskip%
     \setlength \parindent     \akk@orig@parindent%
@@ -195,13 +185,13 @@
 }
 
 \newcommand \akk@setdefaultvalues {%
-    \let \@listI   \akk@default@listI%
-    \let \@listi   \akk@default@listi%
-    \let \@listii  \akk@default@listii%
-    \let \@listiii \akk@default@listiii%
-    \let \@listiv  \akk@default@listiv%
-    \let \@listv   \akk@default@listv%
-    \let \@listvi  \akk@default@listvi%
+    \let \@listI              \akk@default@listI%
+    \let \@listi              \akk@default@listi%
+    \let \@listii             \akk@default@listii%
+    \let \@listiii            \akk@default@listiii%
+    \let \@listiv             \akk@default@listiv%
+    \let \@listv              \akk@default@listv%
+    \let \@listvi             \akk@default@listvi%
     \setlength \parskip       \akk@default@parskip%
     \setlength \bigparskip    \akk@default@bigparskip%
     \setlength \parindent     \akk@default@parindent%
@@ -215,30 +205,6 @@
     \setlength \itemsep       \akk@default@itemsep%
     \akk@layoutlist%
 }
-
-% \akk@beforesectionskip {<sectionname>} {<skip before section>}
-\newcommand \akk@beforesectionskip[2] {%
-    \expandafter \setlength \csname akk@@before#1skip\endcsname {-\akk@default@parskip}%
-    \expandafter \addtolength \csname akk@@before#1skip\endcsname {#2}%
-}
-
-% \akk@aftersectionskip {<sectionname>} {<skip after section>}
-\newcommand \akk@aftersectionskip[2] {%
-    \expandafter \setlength \csname akk@@after#1skip\endcsname {-\akk@default@parskip}%
-    \expandafter \addtolength \csname akk@@after#1skip\endcsname {#2}%
-}
-
-\akk@beforesectionskip {section}       {3.5ex \@plus 1ex \@minus .2ex}
-\akk@aftersectionskip  {section}       {2.3ex \@plus.2ex}
-
-\akk@beforesectionskip {subsection}    {3.25ex\@plus 1ex \@minus .2ex}
-\akk@aftersectionskip  {subsection}    {1.5ex \@plus .2ex}
-
-\akk@beforesectionskip {subsubsection} {3.25ex\@plus 1ex \@minus .2ex}
-\akk@aftersectionskip  {subsubsection} {1.5ex \@plus .2ex}
-
-\akk@beforesectionskip {paragraph}     {2ex   \@plus 1ex \@minus .2ex}
-\akk@aftersectionskip  {paragraph}     {.3ex  \@plus .2ex}
 
 \akk@setdefaultvalues
 

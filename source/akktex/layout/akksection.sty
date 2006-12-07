@@ -1,6 +1,6 @@
 %=====================================================================================================================================
-% Package akksection by Igor Akkerman (c) 2004, 2005
-% Package providing an alternative section definition command.
+% Package akksection by Igor Akkerman (c) 2004-2006
+% Package providing alternative section definition commands.
 %
 % This work may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License (latest version).
@@ -11,12 +11,97 @@
 % This file may only be distributed together with the full 'AkkTeX' bundle.
 %=====================================================================================================================================
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesPackage{akksection}[2005/04/30 by Igor Akkerman (c) 2004, 2005 v1.0.2 Package providing an alternative section definition command.]
+\ProvidesPackage{akksection}[2006/12/06 by Igor Akkerman (c) 2004-2006 v2.0 Package providing alternative section definition commands.]
 %=====================================================================================================================================
 
 \makeatletter
 
+\newcommand* \akk@sectiontype@newparameter[1] {%
+	\expandafter\def\csname akk@sectiontype@#1\endcsname##1{\expandafter\def\csname akk@sectiontype@\akk@sectiontype@name @value@#1\endcsname {##1}}%
+}
+
+\newcommand* \akk@sectiontype@newlengthparameter[1] {%
+	\expandafter\def\csname akk@sectiontype@#1\endcsname##1{\expandafter\newskip\csname akk@sectiontype@\akk@sectiontype@name @value@#1\endcsname\csname akk@sectiontype@\akk@sectiontype@name @value@#1\endcsname##1}%
+}
+
+\akk@sectiontype@newparameter{level}
+\akk@sectiontype@newparameter{parenttype}
+\akk@sectiontype@newlengthparameter{beforeheadingskip}
+\akk@sectiontype@newlengthparameter{afterheadingskip}
+\akk@sectiontype@newlengthparameter{headingindentation}
+\akk@sectiontype@newparameter{indentfirstpar}
+\akk@sectiontype@newparameter{embeddedpar}
+\akk@sectiontype@newparameter{headingstyle}
+\akk@sectiontype@newparameter{counterformat}
+\akk@sectiontype@newparameter{counterlabel}
+\akk@sectiontype@newparameter{mark}
+\akk@sectiontype@newparameter{tocline}
+
+\newcommand\akk@newsectiontype[2] {%
+	% get sectiontype name
+	\edef \akk@sectiontype@name {#1}%
+	% reset values to default
+	\akk@sectiontype@level              {0}%
+	\akk@sectiontype@beforeheadingskip  {0pt}%
+	\akk@sectiontype@afterheadingskip   {0pt}%
+	\akk@sectiontype@headingindentation {0pt}%
+	\akk@sectiontype@parenttype         {}%
+	\akk@sectiontype@indentfirstpar     {false}%
+	\akk@sectiontype@embeddedpar        {false}%
+	\akk@sectiontype@headingstyle       {\normalfont\bfseries}%
+	\akk@sectiontype@mark               {\@gobble}%
+	\akk@sectiontype@tocline            {}%
+	\akk@sectiontype@counterformat      {\csname the#1\endcsname\quad}%
+	\akk@sectiontype@counterlabel       {}%
+	% set user defined values
+	#2%
+	% remove parskips from beforeheadingskip and afterheadingskip
+	\expandafter \addtolength \csname akk@sectiontype@#1@value@beforeheadingskip\endcsname{-\parskip}% ggf. ersetzen durch -\akk@default@parskip, wenn akkparskip Pflicht ist
+	\expandafter \addtolength \csname akk@sectiontype@#1@value@afterheadingskip\endcsname{-\parskip}%  - " -
+	% create section counter and define \the<sectiontype>
+	\expandafter\ifthenelseset\csname akk@sectiontype@#1@value@parenttype\endcsname {%
+		\newcounter{#1}[\csname akk@sectiontype@#1@value@parenttype\endcsname]%
+	}{%
+		\newcounter{#1}%
+	}%
+	\expandafter\ifnotset\csname akk@sectiontype@#1@value@counterlabel\endcsname {%
+		\expandafter\ifthenelseset\csname akk@sectiontype@#1@value@parenttype\endcsname {%
+			\expandafter\def\csname akk@sectiontype@#1@value@counterlabel\endcsname{\csname the\csname akk@sectiontype@#1@value@parenttype\endcsname\endcsname.\arabic{#1}}%
+		}{%
+			\expandafter\def\csname akk@sectiontype@#1@value@counterlabel\endcsname{\arabic{#1}}%
+		}%
+	}%
+	\expandafter\def\csname the#1\endcsname {\csname akk@sectiontype@#1@value@counterlabel\endcsname}%
+	% define \@seccntformat
+	\def \@seccntformat##1{\csname akk@sectiontype@##1@value@counterformat\endcsname}%
+	% define \<sectiontype>mark
+	\expandafter \def \csname #1mark\endcsname {\csname akk@sectiontype@#1@value@mark\endcsname}%
+	% define toc line
+	\expandafter \def \csname l@#1\endcsname {\csname akk@sectiontype@#1@value@tocline\endcsname}%
+	% define \<sectiontype>
+	\expandafter\def\csname #1\endcsname{%
+		\akk@startsection{#1}%
+			{\csname akk@sectiontype@#1@value@level\endcsname}%
+			{\csname akk@sectiontype@#1@value@headingindentation\endcsname}%
+			{\csname akk@sectiontype@#1@value@indentfirstpar\endcsname}%
+			{\csname akk@sectiontype@#1@value@beforeheadingskip\endcsname}%
+			{\csname akk@sectiontype@#1@value@embeddedpar\endcsname}%
+			{\csname akk@sectiontype@#1@value@afterheadingskip\endcsname}%
+			{\csname akk@sectiontype@#1@value@headingstyle\endcsname}%
+	}%
+}
+
+% define \@seccntformat
+\renewcommand \@seccntformat[1] {\csname akk@sectiontype@#1@value@counterformat\endcsname}%
+
 \newif\if@embedded
+
+% \akk@startsection{<sectiontypename>}{<level>}{<headingindentation>}{<beforeheadingskip>}{<embeddedpar?>}{<indentfirstpar?>}{<afterheadingskip>}{<headingstyle>}
+%                   #1                 #2       #3                    #4                   #5           #6                 #7                  #8
+% \akk@sect{<sectiontypename>}{<level>}{<headingindentation>}{<beforeheadingskip>}{<embeddedpar?>}{<afterheadingskip>}{<headingstyle>}[<tocentry>]{<headinglabel>}
+%           #1                #2        #3                    #4                   #5           #6                  #7              #8          #9
+% bitte diese Bezeichnungen benutzen, weil sie klarer sind
+
 
 % \akk@startsection{<name>}{<ebene>}{<einzug>}{<einziehen?>}{<vorabstand>}{<eingebettet?>}{<nachabstand>}{stil}
 \def\akk@startsection#1#2#3#4#5#6#7#8{%
@@ -65,9 +150,9 @@
                 \interlinepenalty \@M #9\@@par%
             }%
         \endgroup%
-        \csname #1mark\endcsname{#8}% 
+        \csname #1mark\endcsname{#8}%
         \addcontentsline{toc}{#1}{%
-            \ifnum #2>\c@secnumdepth
+            \ifnum #2>\c@secnumdepth%
             \else%
                 \protect\numberline{\csname the#1\endcsname}%
             \fi%
@@ -77,7 +162,9 @@
     \akk@xsect{#5}{#6}%
 }
 
-% \akk@ssect{<einzug>}{<einziehen?>}{<vorabstand>}{<eingebettet?>}{<nachabstand>}{<stil>}{<label>}
+
+% \akk@ssect{<einzug>}{<vorabstand>}{<eingebettet?>}{<einziehen?>}{<nachabstand>}{<stil>}{<label>}
+%            #1        #2            #3              #4            #5             #6      #7
 \def\akk@ssect#1#2#3#4#5#6#7{%
     \csname @embedded#4\endcsname%
     \if@embedded%

@@ -13,6 +13,7 @@
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 \ProvidesPackage{akkmathtext}[2005/05/01 1.0.0 by Igor Akkerman (c) 2000, 2001, 2002, 2003, 2004, 2005 Package providing utilities for typesetting text elements within mathematic formulas]
 %=====================================================================================================================================
+\RequirePackage{akkcommand}
 
 \newcommand \textq[1] {{\text{{#1}}\quad}}
 \newcommand \textqq[1] {{\text{{#1}}\qquad}}
@@ -75,7 +76,7 @@
 \newcommand \qqfein {{\qqtext{für ein }}}
 \newcommand \qqfeinq {{\qqtextq{für ein}}}
 \newcommand \qqfeinqq {{\qqtextqq{für ein}}}
-\renewcommand \mit {{\text{ mit }}}
+\forcenewcommand \mit {{\text{ mit }}}
 \newcommand \qmit {{\qtext{mit }}}
 \newcommand \qmitq {{\qtextq{mit}}}
 \newcommand \qqmit {{\qqtext{mit }}}

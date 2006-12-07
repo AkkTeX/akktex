@@ -17,7 +17,6 @@
 \makeatletter
 
 % Initialisierungsteil
-\RequirePackage{ifthen}
 \RequirePackage{akkconditional}
 
 \AtBeginDocument{}
@@ -86,6 +85,30 @@
     \renewcommand \maketitle \relax%
 }
 % ---------------------------------------------------------
+
+% Section definitions
+
+% skips before and after sections
+\newlength \akk@@beforesectionskip
+\newlength \akk@@aftersectionskip
+\newlength \akk@@beforesubsectionskip
+\newlength \akk@@aftersubsectionskip
+\newlength \akk@@beforesubsubsectionskip
+\newlength \akk@@aftersubsubsectionskip
+\newlength \akk@@beforeparagraphskip
+\newlength \akk@@afterparagraphskip
+
+\akk@beforesectionskip {section}       {3.5ex \@plus 1ex \@minus .2ex}
+\akk@aftersectionskip  {section}       {2.3ex \@plus.2ex}
+
+\akk@beforesectionskip {subsection}    {3.25ex\@plus 1ex \@minus .2ex}
+\akk@aftersectionskip  {subsection}    {1.5ex \@plus .2ex}
+
+\akk@beforesectionskip {subsubsection} {3.25ex\@plus 1ex \@minus .2ex}
+\akk@aftersectionskip  {subsubsection} {1.5ex \@plus .2ex}
+
+\akk@beforesectionskip {paragraph}     {2ex   \@plus 1ex \@minus .2ex}
+\akk@aftersectionskip  {paragraph}     {.3ex  \@plus .2ex}
 
 % \akk@startsection{<name>}{<ebene>}{<einzug>}{<einziehen?>}{<vorabstand>}{<eingebettet?>}{<nachabstand>}{stil}
 \renewcommand \section       {\akk@startsection {section}       {1} {0pt} {false} {\akk@@beforesectionskip}       {false} {\akk@@aftersectionskip}       {\normalfont\Large\bfseries}}

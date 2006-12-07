@@ -17,9 +17,10 @@
 \makeatletter
 
 % Initialisierungsteil
-\RequirePackage{ifthen}
+\RequirePackage{akkcommand}
 \RequirePackage{akkconditional}
-\RequirePackage{akkgerman}
+\RequirePackage{akksection}
+\RequirePackage{fancyhdr}
 
 \AtBeginDocument{}
 
@@ -39,16 +40,16 @@
 \ProcessOptions
 
 % Laden von Paketen
-\LoadClass[a4paper]{article}
-
-\RequirePackage{akktex}
+\LoadClass[a4paper]{book}
+\RequirePackage{akkgerman}
+\RequirePackage{akkparskip}
 
 % ---------------------------------------------------------
 % definition of the abstract: use original paragraph values
 % ---------------------------------------------------------
 \let \akk@orig@abstract    \abstract
 \let \akk@orig@endabstract \endabstract
-\renewenvironment {abstract} {%
+\forcenewenvironment {abstract} {%
     \akk@setoriginalvalues%
     \akk@orig@abstract%
 }{%
@@ -84,14 +85,63 @@
         }%
         \vspace{2ex}%
     \end{center}%
-    \renewcommand \maketitle \relax%
+    \forcenewcommand \maketitle \relax%
 }
 % ---------------------------------------------------------
 
-% \akk@startsection{<name>}{<ebene>}{<einzug>}{<einziehen?>}{<vorabstand>}{<eingebettet?>}{<nachabstand>}{stil}
-\newcommand \kapitel       {\akk@startsection {kapitel}       {1} {0pt} {false} {\akk@@beforesectionskip}       {false} {\akk@@aftersectionskip}       {\normalfont\Large\bfseries}}
-\newcommand \teilkapitel   {\akk@startsection {teilkapitel}   {2} {0pt} {false} {\akk@@beforesubsectionskip}    {false} {\akk@@aftersubsectionskip}    {\normalfont\large\bfseries}}
-\newcommand \abschnitt     {\akk@startsection {abschnitt}     {3} {0pt} {false} {\akk@@beforesubsubsectionskip} {false} {\akk@@aftersubsubsectionskip} {\normalfont\normalsize\bfseries}}
-\newcommand \teilabschnitt {\akk@startsection {teilabschnitt} {4} {0pt} {false} {\akk@@beforeparagraphskip}     {false} {\akk@@afterparagraphskip}     {\normalfont\bfseries}}
+% section numbers until level 3
+\setcounter{secnumdepth}{3}
+
+% Section definitions
+\akk@newsectiontype{kapitel} {
+	\akk@sectiontype@level              {1}
+	\akk@sectiontype@beforeheadingskip  {3.5ex \@plus  1ex \@minus .2ex}
+	\akk@sectiontype@afterheadingskip   {2.3ex \@plus .2ex}
+	\akk@sectiontype@headingindentation {0pt}
+	\akk@sectiontype@indentfirstpar     {false}
+	\akk@sectiontype@embeddedpar        {false}
+	\akk@sectiontype@headingstyle       {\normalfont\Large\bfseries\underline}
+	\akk@sectiontype@tocline            {\@dottedtocline{2}{1.5em}{2.3em}}
+	\akk@sectiontype@counterformat      {\fbox{\Huge\bfseries\thekapitel}\quad}%
+}
+
+\akk@newsectiontype {teilkapitel} {
+	\akk@sectiontype@level              {2}
+	\akk@sectiontype@beforeheadingskip  {3.25ex \@plus  1ex \@minus .2ex}
+	\akk@sectiontype@afterheadingskip   { 1.5ex \@plus .2ex}
+	\akk@sectiontype@headingindentation {0pt}
+	\akk@sectiontype@indentfirstpar     {false}
+	\akk@sectiontype@embeddedpar        {false}
+	\akk@sectiontype@headingstyle       {\normalfont\large\bfseries}
+	\akk@sectiontype@parenttype         {kapitel}
+	\akk@sectiontype@tocline            {\@dottedtocline{3}{3.8em}{3.2em}}
+}
+
+\akk@newsectiontype {abschnitt} {
+	\akk@sectiontype@level              {3}
+	\akk@sectiontype@beforeheadingskip  {3.25ex \@plus  1ex \@minus .2ex}
+	\akk@sectiontype@afterheadingskip   { 1.5ex \@plus .2ex}
+	\akk@sectiontype@headingindentation {0pt}
+	\akk@sectiontype@indentfirstpar     {false}
+	\akk@sectiontype@embeddedpar        {false}
+	\akk@sectiontype@headingstyle       {\normalfont\normalsize\bfseries}
+	\akk@sectiontype@parenttype         {teilkapitel}
+	\akk@sectiontype@tocline            {\@dottedtocline{4}{7.0em}{4.1em}}
+}
+
+\akk@newsectiontype {teilabschnitt} {
+	\akk@sectiontype@level              {4}
+	\akk@sectiontype@beforeheadingskip  { 2ex \@plus  1ex \@minus .2ex}
+	\akk@sectiontype@afterheadingskip   {.3ex \@plus .2ex}
+	\akk@sectiontype@headingindentation {0pt}
+	\akk@sectiontype@indentfirstpar     {false}
+	\akk@sectiontype@embeddedpar        {false}
+	\akk@sectiontype@headingstyle       {\normalfont\normalsize\bfseries}
+	\akk@sectiontype@parenttype         {abschnitt}
+%	\akk@sectiontype@tocline            {\@dottedtocline{5}{10em}{5em}}
+}
+
+\pagestyle{fancy}
+\lhead{}
 
 \makeatother
