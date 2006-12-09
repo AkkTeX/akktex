@@ -1,6 +1,6 @@
 %=====================================================================================================================================
-% Package akktex by Igor Akkerman (c) 2005
-% Package loading all AkkTeX packages.
+% Package akktex by Igor Akkerman (c) 2005-2006
+% Package loading all AkkTeX packages and a standard set of other useful packages.
 %
 % This work may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License (latest version).
@@ -11,7 +11,7 @@
 % This file may only be distributed together with the full 'AkkTeX' bundle.
 %=====================================================================================================================================
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesPackage{akktex}[2005/05/05 1.0.1 by Igor Akkerman (c) 2005 Package loading all AkkTeX packages.]
+\ProvidesPackage{akktex}[2006/12/08 1.1 by Igor Akkerman (c) 2005-2006 Package loading all AkkTeX packages and a standard set of other useful packages.]
 %=====================================================================================================================================
 
 \makeatletter
@@ -25,7 +25,7 @@
 % Deklaration von Optionen
 \DeclareOption {widepage}  {\setboolean {akk@widepage} {true}}
 \DeclareOption {longpage}  {\setboolean {akk@longpage} {true}}
-\DeclareOption {twoside}   {\PassOptionsToPackage {twoside} {akkwidepage}}
+\DeclareOption {twoside}   {\PassOptionsToPackage{twoside}{akkwidepage}}
 \DeclareOption {intlimits} {\PassOptionsToPackage{intlimits}{akkmath}}
 
 % Ausfuehrung von Optionen
@@ -40,7 +40,11 @@
 \RequirePackage{float}
 \RequirePackage{enumerate}
 \RequirePackage{verbatim}
+\RequirePackage{alltt}
+\RequirePackage{fancyhdr}
+\RequirePackage{varioref}
 
+\RequirePackage{akktextlayout}
 \RequirePackage{akkcommand}
 \RequirePackage{akkdoc}
 \RequirePackage{akkstring}

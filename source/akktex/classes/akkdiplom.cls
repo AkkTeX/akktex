@@ -25,11 +25,11 @@
 \AtBeginDocument{}
 
 % Deklaration von Optionen
-\DeclareOption {10pt}     {\PassOptionsToClass   {10pt}     {book}}
-\DeclareOption {11pt}     {\PassOptionsToClass   {11pt}     {book}}
-\DeclareOption {12pt}     {\PassOptionsToClass   {12pt}     {book}}
-\DeclareOption {draft}    {\PassOptionsToClass   {draft}    {book}}
-\DeclareOption {final}    {\PassOptionsToClass   {final}    {book}}
+\DeclareOption {10pt}     {\PassOptionsToClass   {10pt}     {report}}
+\DeclareOption {11pt}     {\PassOptionsToClass   {11pt}     {report}}
+\DeclareOption {12pt}     {\PassOptionsToClass   {12pt}     {report}}
+\DeclareOption {draft}    {\PassOptionsToClass   {draft}    {report}}
+\DeclareOption {final}    {\PassOptionsToClass   {final}    {report}}
 
 \DeclareOption {widepage} {\PassOptionsToPackage {widepage} {akktex}}
 \DeclareOption {longpage} {\PassOptionsToPackage {longpage} {akktex}}
@@ -40,9 +40,9 @@
 \ProcessOptions
 
 % Laden von Paketen
-\LoadClass[a4paper]{book}
+\LoadClass[a4paper,twoside]{report}
 \RequirePackage{akkgerman}
-\RequirePackage{akkparskip}
+\RequirePackage{akktex}
 
 % ---------------------------------------------------------
 % definition of the abstract: use original paragraph values
@@ -92,20 +92,7 @@
 % section numbers until level 3
 \setcounter{secnumdepth}{3}
 
-% Section definitions
-\akk@newsectiontype{kapitel} {
-	\akk@sectiontype@level              {1}
-	\akk@sectiontype@beforeheadingskip  {3.5ex \@plus  1ex \@minus .2ex}
-	\akk@sectiontype@afterheadingskip   {2.3ex \@plus .2ex}
-	\akk@sectiontype@headingindentation {0pt}
-	\akk@sectiontype@indentfirstpar     {false}
-	\akk@sectiontype@embeddedpar        {false}
-	\akk@sectiontype@headingstyle       {\normalfont\Large\bfseries\underline}
-	\akk@sectiontype@tocline            {\@dottedtocline{2}{1.5em}{2.3em}}
-	\akk@sectiontype@counterformat      {\fbox{\Huge\bfseries\thekapitel}\quad}%
-}
-
-\akk@newsectiontype {teilkapitel} {
+\akk@newsectiontype {section} {
 	\akk@sectiontype@level              {2}
 	\akk@sectiontype@beforeheadingskip  {3.25ex \@plus  1ex \@minus .2ex}
 	\akk@sectiontype@afterheadingskip   { 1.5ex \@plus .2ex}
@@ -113,11 +100,12 @@
 	\akk@sectiontype@indentfirstpar     {false}
 	\akk@sectiontype@embeddedpar        {false}
 	\akk@sectiontype@headingstyle       {\normalfont\large\bfseries}
-	\akk@sectiontype@parenttype         {kapitel}
+	\akk@sectiontype@parenttype         {chapter}
 	\akk@sectiontype@tocline            {\@dottedtocline{3}{3.8em}{3.2em}}
+	\akk@sectiontype@mark               {\markright{\thesection. }}
 }
 
-\akk@newsectiontype {abschnitt} {
+\akk@newsectiontype {subsection} {
 	\akk@sectiontype@level              {3}
 	\akk@sectiontype@beforeheadingskip  {3.25ex \@plus  1ex \@minus .2ex}
 	\akk@sectiontype@afterheadingskip   { 1.5ex \@plus .2ex}
@@ -125,11 +113,11 @@
 	\akk@sectiontype@indentfirstpar     {false}
 	\akk@sectiontype@embeddedpar        {false}
 	\akk@sectiontype@headingstyle       {\normalfont\normalsize\bfseries}
-	\akk@sectiontype@parenttype         {teilkapitel}
+	\akk@sectiontype@parenttype         {section}
 	\akk@sectiontype@tocline            {\@dottedtocline{4}{7.0em}{4.1em}}
 }
 
-\akk@newsectiontype {teilabschnitt} {
+\akk@newsectiontype {subsubsection} {
 	\akk@sectiontype@level              {4}
 	\akk@sectiontype@beforeheadingskip  { 2ex \@plus  1ex \@minus .2ex}
 	\akk@sectiontype@afterheadingskip   {.3ex \@plus .2ex}
@@ -137,11 +125,24 @@
 	\akk@sectiontype@indentfirstpar     {false}
 	\akk@sectiontype@embeddedpar        {false}
 	\akk@sectiontype@headingstyle       {\normalfont\normalsize\bfseries}
-	\akk@sectiontype@parenttype         {abschnitt}
-%	\akk@sectiontype@tocline            {\@dottedtocline{5}{10em}{5em}}
+	\akk@sectiontype@parenttype         {subsection}
+	\akk@sectiontype@tocline            {\@dottedtocline{5}{10em}{5em}}
 }
 
+\let\kapitel\chapter
+\let\teilkapitel\section
+\let\abschnitt\subsection
+\let\teilabschnitt\subsubsection
+
 \pagestyle{fancy}
-\lhead{}
+\fancyhf{}
+\fancyhead[LE,RO]{\textbf\thepage}
+\fancyhead[RE]{\textbf\leftmark}
+\fancyhead[LO]{\textbf\rightmark}
+\renewcommand\headrulewidth{0.8pt}
+
+\renewcommand \chaptermark[1]{\markboth{\thechapter\hspace{1.5ex}#1}{}}
+\renewcommand \sectionmark[1]{\markright{\thesection\quad #1}}
 
 \makeatother
+

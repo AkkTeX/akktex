@@ -16,6 +16,8 @@
 
 \makeatletter
 
+\RequirePackage{akkconditional}
+
 \newcommand* \akk@sectiontype@newparameter[1] {%
 	\expandafter\def\csname akk@sectiontype@#1\endcsname##1{\expandafter\def\csname akk@sectiontype@\akk@sectiontype@name @value@#1\endcsname {##1}}%
 }
@@ -59,11 +61,11 @@
 	\expandafter \addtolength \csname akk@sectiontype@#1@value@beforeheadingskip\endcsname{-\parskip}% ggf. ersetzen durch -\akk@default@parskip, wenn akkparskip Pflicht ist
 	\expandafter \addtolength \csname akk@sectiontype@#1@value@afterheadingskip\endcsname{-\parskip}%  - " -
 	% create section counter and define \the<sectiontype>
-	\expandafter\ifthenelseset\csname akk@sectiontype@#1@value@parenttype\endcsname {%
-		\newcounter{#1}[\csname akk@sectiontype@#1@value@parenttype\endcsname]%
-	}{%
-		\newcounter{#1}%
+	\@definecounter{#1}
+	\expandafter\ifset\csname akk@sectiontype@#1@value@parenttype\endcsname {%
+		\@addtoreset{#1}{\csname akk@sectiontype@#1@value@parenttype\endcsname}%
 	}%
+	% set default counter label: [\theparent.]arabic{counter}
 	\expandafter\ifnotset\csname akk@sectiontype@#1@value@counterlabel\endcsname {%
 		\expandafter\ifthenelseset\csname akk@sectiontype@#1@value@parenttype\endcsname {%
 			\expandafter\def\csname akk@sectiontype@#1@value@counterlabel\endcsname{\csname the\csname akk@sectiontype@#1@value@parenttype\endcsname\endcsname.\arabic{#1}}%
@@ -121,7 +123,7 @@
     }%
 }
 
-% \akk@sect{<name>}{<ebene>}{<einzug>}{<vorabstand>}{<eingebettet?>}}{<nachabstand>}{<stil>}[<toc_eintrag>]{<label>}
+% \akk@sect{<name>}{<ebene>}{<einzug>}{<vorabstand>}{<eingebettet?>}{<nachabstand>}{<stil>}[<toc_eintrag>]{<label>}
 \def\akk@sect#1#2#3#4#5#6#7[#8]#9{%
     \ifnum #2>\c@secnumdepth%
         \let\@svsec\@empty%

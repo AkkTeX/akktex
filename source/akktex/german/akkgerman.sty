@@ -27,7 +27,7 @@
 
 % non wrappable dash (-) allowing further hyphenation
 \defineshorthand{"_}{%
-    \textormath{%
+    \protect\textormath{%
         \leavevmode%
         \nobreak%
         \hbox{-}%
@@ -40,3 +40,4 @@
 
 % "/ shorthand for wrappable slash (/)
 \defineshorthand{"/}{/\hspace{0pt}}
+

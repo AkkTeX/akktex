@@ -11,7 +11,7 @@
 % This file may only be distributed together with the full 'AkkTeX' bundle.
 %=====================================================================================================================================
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesPackage{akkparskip}[2006/12/06 by Igor Akkerman (c) 2004-2006 v1.4.1 Package providing a non empty paragraph skip with list and section environment corrections.]
+\ProvidesPackage{akkparskip}[2006/12/09 by Igor Akkerman (c) 2004-2006 v1.4.2 Package providing a non empty paragraph skip with list and section environment corrections.]
 %=====================================================================================================================================
 
 \RequirePackage{akksection}
@@ -163,7 +163,7 @@
 \setlength \akk@default@parsep        \akk@default@parskip
 \setlength \akk@default@itemsep       \akk@orig@itemsep
 
-\newcommand \akk@setoriginalvalues {%
+\newcommand \akk@setoriginallengths {%
     \let       \@listI        \akk@orig@listI%
     \let       \@listi        \akk@orig@listi%
     \let       \@listii       \akk@orig@listii%
@@ -184,7 +184,7 @@
     \setlength \itemsep       \akk@orig@itemsep%
 }
 
-\newcommand \akk@setdefaultvalues {%
+\newcommand \akk@setdefaultlengths {%
     \let \@listI              \akk@default@listI%
     \let \@listi              \akk@default@listi%
     \let \@listii             \akk@default@listii%
@@ -206,7 +206,7 @@
     \akk@layoutlist%
 }
 
-\akk@setdefaultvalues
+\akk@setdefaultlengths
 
 % big paragraph skip \bigparskip
 \newcommand \bigpar {%

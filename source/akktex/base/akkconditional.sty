@@ -11,11 +11,14 @@
 % This file may only be distributed together with the full 'AkkTeX' bundle.
 %=====================================================================================================================================
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesPackage{akkconditional}[2006/12/07 1.2 by Igor Akkerman (c) 2004, 2005 Package providing utilities for handling conditionals.]
+\ProvidesPackage{akkconditional}[2006/12/08 1.2.1 by Igor Akkerman (c) 2004-2006 Package providing utilities for handling conditionals.]
 %=====================================================================================================================================
 
 \RequirePackage{ifthen}
 %------------------------------------------------------------------------------
+
+% WARNING: MOST OF THESE COMMANDS ARE BREAKABLE AND SHOULD BE PROTECTED!
+%          e.g. \protect\withbool...
 
 \newcommand \setnewboolean[2] {\newboolean{#1}\setboolean{#1}{#2}}
 
@@ -25,9 +28,9 @@
 \newcommand \ifbooltrue[2]    {\ifthen{\boolean{#1}}{#2}}
 \newcommand \ifboolfalse[2]   {\ifelse{\boolean{#1}}{#2}}
 
-\newcommand \settrue[1]       {\setboolean{#1}{true}}
-\newcommand \setfalse[1]      {\setboolean{#1}{false}}
-\newcommand \withbool[2]      {\settrue{#1}#2\setfalse{#1}}
+\newcommand \setbooltrue[1]   {\setboolean{#1}{true}}
+\newcommand \setboolfalse[1]  {\setboolean{#1}{false}}
+\newcommand \withbool[2]      {\setbooltrue{#1}#2\setboolfalse{#1}}
 
 %--------------------------
 % \ifset[<unsetstring>]{<expression>}{<code>}
