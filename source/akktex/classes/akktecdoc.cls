@@ -89,31 +89,55 @@
 % Section definitions
 
 % skips before and after sections
-\newlength \akk@@beforesectionskip
-\newlength \akk@@aftersectionskip
-\newlength \akk@@beforesubsectionskip
-\newlength \akk@@aftersubsectionskip
-\newlength \akk@@beforesubsubsectionskip
-\newlength \akk@@aftersubsubsectionskip
-\newlength \akk@@beforeparagraphskip
-\newlength \akk@@afterparagraphskip
 
-\akk@beforesectionskip {section}       {3.5ex \@plus 1ex \@minus .2ex}
-\akk@aftersectionskip  {section}       {2.3ex \@plus.2ex}
+\akk@newsectiontype {section} {
+	\akk@sectiontype@level              {2}
+	\akk@sectiontype@beforeheadingskip  {3.25ex \@plus  1ex \@minus .2ex}
+	\akk@sectiontype@afterheadingskip   { 1.5ex \@plus .2ex}
+	\akk@sectiontype@headingindentation {0pt}
+	\akk@sectiontype@indentfirstpar     {false}
+	\akk@sectiontype@embeddedpar        {false}
+	\akk@sectiontype@headingstyle       {\normalfont\large\bfseries\intitletrue}
+	\akk@sectiontype@parenttype         {}
+	\akk@sectiontype@tocline            {\@dottedtocline{3}{3.8em}{3.2em}}
+	\akk@sectiontype@mark               {\akk@diplom@teilkapitelmark}
+}
+\newcommand \akk@diplom@teilkapitelmark[1] {\markright{\theteilkapitel\quad #1}}
 
-\akk@beforesectionskip {subsection}    {3.25ex\@plus 1ex \@minus .2ex}
-\akk@aftersectionskip  {subsection}    {1.5ex \@plus .2ex}
+\akk@newsectiontype {subsection} {
+	\akk@sectiontype@level              {3}
+	\akk@sectiontype@beforeheadingskip  {3.25ex \@plus  1ex \@minus .2ex}
+	\akk@sectiontype@afterheadingskip   { 1.5ex \@plus .2ex}
+	\akk@sectiontype@headingindentation {0pt}
+	\akk@sectiontype@indentfirstpar     {false}
+	\akk@sectiontype@embeddedpar        {false}
+	\akk@sectiontype@headingstyle       {\normalfont\normalsize\bfseries\intitletrue}
+	\akk@sectiontype@parenttype         {section}
+	\akk@sectiontype@tocline            {\@dottedtocline{4}{7.0em}{4.1em}}
+}
 
-\akk@beforesectionskip {subsubsection} {3.25ex\@plus 1ex \@minus .2ex}
-\akk@aftersectionskip  {subsubsection} {1.5ex \@plus .2ex}
+\akk@newsectiontype {subsubsection} {
+	\akk@sectiontype@level              {4}
+	\akk@sectiontype@beforeheadingskip  { 2ex \@plus  1ex \@minus .2ex}
+	\akk@sectiontype@afterheadingskip   {.3ex \@plus .2ex}
+	\akk@sectiontype@headingindentation {0pt}
+	\akk@sectiontype@indentfirstpar     {false}
+	\akk@sectiontype@embeddedpar        {false}
+	\akk@sectiontype@headingstyle       {\normalfont\normalsize\bfseries\intitletrue}
+	\akk@sectiontype@parenttype         {subsection}
+	\akk@sectiontype@tocline            {\@dottedtocline{5}{10em}{5em}}
+}
 
-\akk@beforesectionskip {paragraph}     {2ex   \@plus 1ex \@minus .2ex}
-\akk@aftersectionskip  {paragraph}     {.3ex  \@plus .2ex}
-
-% \akk@startsection{<name>}{<ebene>}{<einzug>}{<einziehen?>}{<vorabstand>}{<eingebettet?>}{<nachabstand>}{stil}
-\renewcommand \section       {\akk@startsection {section}       {1} {0pt} {false} {\akk@@beforesectionskip}       {false} {\akk@@aftersectionskip}       {\normalfont\Large\bfseries}}
-\renewcommand \subsection    {\akk@startsection {subsection}    {2} {0pt} {false} {\akk@@beforesubsectionskip}    {false} {\akk@@aftersubsectionskip}    {\normalfont\large\bfseries}}
-\renewcommand \subsubsection {\akk@startsection {subsubsection} {3} {0pt} {false} {\akk@@beforesubsubsectionskip} {false} {\akk@@aftersubsubsectionskip} {\normalfont\normalsize\bfseries}}
-\renewcommand \paragraph     {\akk@startsection {paragraph}     {4} {0pt} {false} {\akk@@beforeparagraphskip}     {false} {\akk@@afterparagraphskip}     {\normalfont\bfseries}}
+\akk@newsectiontype {paragraph} {
+	\akk@sectiontype@level              {5}
+	\akk@sectiontype@beforeheadingskip  {2ex   \@plus 1ex \@minus .2ex}
+	\akk@sectiontype@afterheadingskip   {.3ex  \@plus .2ex}
+	\akk@sectiontype@headingindentation {0pt}
+	\akk@sectiontype@indentfirstpar     {false}
+	\akk@sectiontype@embeddedpar        {false}
+	\akk@sectiontype@headingstyle       {\normalfont\normalsize\bfseries\intitletrue}
+	\akk@sectiontype@parenttype         {subsubsection}
+	\akk@sectiontype@tocline            {\@dottedtocline{5}{10em}{5em}}
+}
 
 \makeatother
