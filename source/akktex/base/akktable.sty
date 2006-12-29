@@ -1,6 +1,6 @@
 %=====================================================================================================================================
-% Package akkdoc by Igor Akkerman (c) 2000-2006
-% Package providing commands for lists.
+% Package akktable by Igor Akkerman (c) 2006
+% Package providing basic utilities for typesetting mathematics.
 %
 % This work may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License (latest version).
@@ -11,21 +11,25 @@
 % This file may only be distributed together with the full 'AkkTeX' bundle.
 %=====================================================================================================================================
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesPackage{akklist}[2006/12/26 1.0.1 by Igor Akkerman (c) 2000-2006 Package providing commands for lists.]
+\ProvidesPackage{akktable}[2006/12/29 1.0.0 by Igor Akkerman (c) 2006 Package providing basic utilities for typesetting mathematics]
 %=====================================================================================================================================
 
-% titled list item
-%
-% Example:
-% \begin{itemize}
-%     \titem{Title 1}
-%         Text for this item
-%     \titem{Title 2}
-%         Text for this item
-% \end{itemize}
-%
-% Setting title format:
-% \renewcommand \titemtitle[1] {\textbf{#1}} % default setting
-%
-\newcommand* \titemtitle[1]  {\textbf{#1}}
-\newcommand* \titem[1]       {\unskip\item\titemtitle{#1}\\*}
+\makeatletter
+
+% Removes a column type set with \newcolumntype
+% Thanks to Heiko Oberdiek for this command
+\newcommand* \removecolumntype[1] {%
+	\begingroup%
+	\toks@={}%
+	\def\NC@do##1{%
+		\if##1#1%
+		\else%
+			\toks@=\expandafter{\the\toks@\NC@do##1}%
+		\fi%
+	}%
+	\the\NC@list%
+	\expandafter\endgroup%
+	\expandafter\NC@list\expandafter{\the\toks@}%
+}
+
+\makeatother

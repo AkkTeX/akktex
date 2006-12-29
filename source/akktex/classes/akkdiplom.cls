@@ -18,6 +18,8 @@
 
 % Initialisierungsteil (leer)
 
+\RequirePackage{akkcommand}
+
 % Deklaration von Optionen
 \DeclareOption {10pt}     {\PassOptionsToClass   {10pt}     {report}}
 \DeclareOption {11pt}     {\PassOptionsToClass   {11pt}     {report}}
@@ -28,7 +30,10 @@
 \DeclareOption {widepage} {\PassOptionsToPackage {widepage} {akktex}}
 \DeclareOption {longpage} {\PassOptionsToPackage {longpage} {akktex}}
 
-\DeclareOption* {\OptionNotUsed} % don't forward unknown options
+\DeclareOption {displaycolumntypes} {\PassOptionsToPackage{displaycolumntypes}{akktex}}
+
+% don't forward unknown options
+\DeclareOption* {\akk@ClassError{akkdiplom}{Unknown option \OptionNotUsed!}}%
 
 % Ausfuehrung von Optionen
 \ProcessOptions

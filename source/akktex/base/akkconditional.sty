@@ -32,6 +32,8 @@
 \newcommand \setboolfalse[1]  {\setboolean{#1}{false}}
 \newcommand \withbool[2]      {\setbooltrue{#1}#2\setboolfalse{#1}}
 
+\newcommand* \settoboolvalue[2] {\setboolean{#1}{\value{#2}}}
+
 %--------------------------
 % \ifset[<unsetstring>]{<expression>}{<code>}
 % Executes <code> if <expression> is not <unsetstring>; does nothing otherwise.
@@ -48,3 +50,8 @@
 
 \newcommand \ifmathmode[2] {\ifbool{mmode}{#1}{#2}}
 % use \textormath{#2}{#1} alternatively
+
+\newcommand* \settovalue[2] {\setcounter{#1}{\value{#2}}}
+
+
+\newcommand \setnewlength[2] {\newlength{#1}\setlength{#1}{#2}}

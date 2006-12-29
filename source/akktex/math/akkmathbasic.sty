@@ -14,9 +14,26 @@
 \ProvidesPackage{akkmathbasic}[2005/04/30 3.0.0 by Igor Akkerman (c) 2000, 2001, 2002, 2003, 2004, 2005 Package providing basic utilities for typesetting mathematics]
 %=====================================================================================================================================
 
+\makeatletter
+
+\RequirePackage{ifthen}
+\RequirePackage{akkcommand}
+
+\newboolean{akk@displaycolumntypes}
+
+\DeclareOption {displaycolumntypes} {\setboolean{akk@displaycolumntypes}{true}}
+
+
+\DeclareOption* {\akk@PackageError{akkmathbasic}{Unknown option \OptionNotUsed!}}%
+
+\ProcessOptions
+
 \RequirePackage{amsmath}
 \RequirePackage{amstext}
 \RequirePackage{array}
+\RequirePackage{akkconditional}
+
+
 %----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 %------------------------------------------------------------------------------
@@ -40,12 +57,16 @@
 %------------------------------------------------------------------------------
 % Array column types
 %------------------------------------------------------------------------------
-\newcolumntype {C} {>{\displaystyle}c}
-\newcolumntype {L} {>{\displaystyle}l}
-\newcolumntype {R} {>{\displaystyle}r}
+\ifbooltrue{akk@displaycolumntypes} {%
+	\newcolumntype {C} {>{\displaystyle}c}%
+	\newcolumntype {L} {>{\displaystyle}l}%
+	\newcolumntype {R} {>{\displaystyle}r}%
+}
 
 %------------------------------------------------------------------------------
 % Greek letters
 %------------------------------------------------------------------------------
 \newcommand \eps \varepsilon
 \newcommand \la  \lambda
+
+\makeatother

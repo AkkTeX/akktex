@@ -17,6 +17,7 @@
 \makeatletter
 
 % Initialisierungsteil
+\RequirePackage{akkcommand}
 \RequirePackage{akkconditional}
 
 \AtBeginDocument{}
@@ -31,7 +32,8 @@
 \DeclareOption {widepage} {\PassOptionsToPackage {widepage} {akktex}}
 \DeclareOption {longpage} {\PassOptionsToPackage {longpage} {akktex}}
 
-\DeclareOption* {\OptionNotUsed} % don't forward unknown options
+\DeclareOption* {\akk@ClassError{akktecdoc}{Unknown option \OptionNotUsed!}}%
+\HandleClassUnknownOption{akktecdoc} % don't forward unknown options
 
 % Ausfuehrung von Optionen
 \ProcessOptions
