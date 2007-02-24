@@ -16,7 +16,7 @@
 
 \makeatletter
 
-% Initialisierungsteil (leer)
+% Initialisierungsteil
 
 \RequirePackage{akkcommand}
 

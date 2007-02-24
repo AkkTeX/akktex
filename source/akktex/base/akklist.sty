@@ -24,8 +24,8 @@
 %         Text for this item
 % \end{itemize}
 %
-% Setting title format:
-% \renewcommand \titemtitle[1] {\textbf{#1}} % default setting
+% Setting title style:
+% \renewcommand \titemstyle[1] {\textbf} % default setting
 %
-\newcommand* \titemtitle[1]  {\textbf{#1}}
-\newcommand* \titem[1]       {\unskip\item\titemtitle{#1}\\*}
+\newcommand* \titemstyle  {\bfseries}
+\newcommand* \titem[1]    {\unskip\item\titemstyle{#1}\\*}
