@@ -21,11 +21,11 @@
 \RequirePackage{akkcommand}
 
 % Deklaration von Optionen
-\DeclareOption {10pt}     {\PassOptionsToClass   {10pt}     {report}}
-\DeclareOption {11pt}     {\PassOptionsToClass   {11pt}     {report}}
-\DeclareOption {12pt}     {\PassOptionsToClass   {12pt}     {report}}
-\DeclareOption {draft}    {\PassOptionsToClass   {draft}    {report}}
-\DeclareOption {final}    {\PassOptionsToClass   {final}    {report}}
+\DeclareOption {10pt}     {\PassOptionsToClass   {10pt}     {book}}
+\DeclareOption {11pt}     {\PassOptionsToClass   {11pt}     {book}}
+\DeclareOption {12pt}     {\PassOptionsToClass   {12pt}     {book}}
+\DeclareOption {draft}    {\PassOptionsToClass   {draft}    {book}}
+\DeclareOption {final}    {\PassOptionsToClass   {final}    {book}}
 
 \DeclareOption {widepage} {\PassOptionsToPackage {widepage} {akktex}}
 \DeclareOption {longpage} {\PassOptionsToPackage {longpage} {akktex}}
@@ -39,9 +39,9 @@
 \ProcessOptions
 
 % Laden von Paketen
-\LoadClass[a4paper]{report}
-%\LoadClass[a4paper,twoside,openright]{report}
-%\LoadClass[a4paper,twoside,openright,clearpageempty]{scrreprt}
+%\LoadClass[a4paper]{book}
+\LoadClass[a4paper,twoside,openright]{book}
+
 \RequirePackage{akkcommand}
 \RequirePackage{akkconditional}
 \RequirePackage{akksection}
@@ -52,6 +52,8 @@
 \RequirePackage{fancyhdr}
 \RequirePackage[palatino,nogrey]{quotchap}
 \RequirePackage{nextpage}
+
+%\LoadClass[a4paper,twoside,openright,clearpageempty]{scrreprt}
 
 % ---------------------------------------------------------
 % definition of the abstract: use original paragraph values
@@ -73,12 +75,12 @@
 \newcommand \akk@maketitle {%
     \normalsize%
     \begin{center}%
-        \begin{Huge}%
+        \begin{Large}%
             \bfseries%
             \@title\makebox[0pt]{\phantom{Mg}}%
             \\%
-        \end{Huge}%
-        \vspace{2.5ex}%
+        \end{Large}%
+        \vspace{5cm}%
         \begin{Large}%
             \bfseries%
             \begin{tabular}[t]{c}%
@@ -96,14 +98,43 @@
     \end{center}%
     \forcenewcommand \maketitle \relax%
 }
+%\newcommand \akk@maketitle {%
+%    \normalsize%
+%    \begin{center}%
+%        \begin{Large}%
+%            \bfseries%
+%            \@title\makebox[0pt]{\phantom{Mg}}%
+%            \\%
+%        \end{Large}%
+%        \vspace{2.5ex}%
+%        \begin{Large}%
+%            \bfseries%
+%            \begin{tabular}[t]{c}%
+%                \@author\makebox[0pt]{\phantom{Mg}}%
+%            \end{tabular}%
+%            \\%
+%        \end{Large}%
+%        \ifbooltrue{akk@datetitle} {%
+%            \vspace{3ex}%
+%            \begin{large}%\bfseries%
+%                \@date\\%
+%            \end{large}%
+%        }%
+%        \vspace{2ex}%
+%    \end{center}%
+%    \forcenewcommand \maketitle \relax%
 % ---------------------------------------------------------
 
 \newboolean{intitle}
 
 % section numbers until level 3
 \setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
 
 \let\kapitel\chapter
+%\let\teilkapitel\subsection
+%\let\abschnitt\subsubsection
+%\let\teilabschnitt\paragraph
 
 \akk@newsectiontype {teilkapitel} {
 	\akk@sectiontype@level              {2}
@@ -114,7 +145,7 @@
 	\akk@sectiontype@embeddedpar        {false}
 	\akk@sectiontype@headingstyle       {\normalfont\large\bfseries\intitletrue}
 	\akk@sectiontype@parenttype         {chapter}
-	\akk@sectiontype@tocline            {\@dottedtocline{3}{3.8em}{3.2em}}
+	\akk@sectiontype@tocline            {\@dottedtocline{2}{3.8em}{3.2em}}
 	\akk@sectiontype@mark               {\akk@diplom@teilkapitelmark}
 }
 \newcommand \akk@diplom@teilkapitelmark[1] {\markright{\theteilkapitel\quad #1}}
@@ -128,7 +159,7 @@
 	\akk@sectiontype@embeddedpar        {false}
 	\akk@sectiontype@headingstyle       {\normalfont\normalsize\bfseries\intitletrue}
 	\akk@sectiontype@parenttype         {teilkapitel}
-	\akk@sectiontype@tocline            {\@dottedtocline{4}{7.0em}{4.1em}}
+	\akk@sectiontype@tocline            {\@dottedtocline{3}{7.0em}{4.1em}}
 }
 
 \akk@newsectiontype {teilabschnitt} {
@@ -140,7 +171,7 @@
 	\akk@sectiontype@embeddedpar        {false}
 	\akk@sectiontype@headingstyle       {\normalfont\normalsize\bfseries\intitletrue}
 	\akk@sectiontype@parenttype         {abschnitt}
-	\akk@sectiontype@tocline            {\@dottedtocline{5}{10em}{5em}}
+	\akk@sectiontype@tocline            {\@dottedtocline{4}{10em}{5em}}
 }
 
 % header settings
